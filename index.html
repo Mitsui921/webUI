@@ -23,7 +23,7 @@
         }
 
         body {
-            height: 100vh;
+            height: 120vh;
             background: linear-gradient(#141e30, #243b55);
             /*display: flex;*/
             justify-content: center;
@@ -42,7 +42,7 @@
             box-sizing: border-box;
             position: relative;
             display: inline-table;
-            margin-left: 150px;
+            margin-left: 350px;
             margin-top: 50px;
             margin-right: 50px;
         }
@@ -77,7 +77,7 @@
 
         .btn {
             padding: 10px 20px;
-            margin-top: 200px;
+            margin-top: 20px;
             color: #03e9f4;
             position: relative;
             overflow: hidden;
@@ -232,6 +232,10 @@
             0 0 100px 0 #03e9f4;
             transition: all 1s linear;
         }
+        .img-container{
+            display: flex;
+            justify-content: center;
+        }
 
     </style>
 </head>
@@ -239,17 +243,17 @@
 <body>
 
 
-<h1 style="text-align: center; margin-top: 60px">Choose your component</h1>
+<h1 style="text-align: center; margin-top: 60px">请选择模态</h1>
 
 <button class="cartButton" onclick="toggleSidebar()"><i class="iconfont icon-gouwuchekong" ></i></button>
 
 <div id="sidebar" style="text-align: center">
-    <h1 style="text-align: center; margin-top: 60px">Components</h1>
+    <h1 style="text-align: center; margin-top: 60px">已选模态</h1>
     <ol id="selectedButtons" style="text-align: center; margin-top: 80px"></ol>
     <div class="button-container">
-        <button id="compile" class="functionButton" style="margin-left: 60px">COMPILE</button>
-        <button id="run" class="functionButton" style="margin-left: 60px">RUN</button>
-        <button id="pause" class="functionButton" style="margin-left: 60px">PAUSE</button>
+        <button id="compile" class="functionButton" style="margin-left: 60px; font-size: large">编译</button>
+        <button id="run" class="functionButton" style="margin-left: 60px; font-size: large">运行</button>
+        <button id="pause" class="functionButton" style="margin-left: 60px; font-size: large">暂停</button>
     </div>
 
 </div>
@@ -257,37 +261,38 @@
 
 <!--可选元素框-->
 <div class="Box">
-    <h2>component1</h2>
+    <h2>GEO</h2>
+    <div class="img-container">
+        <img width="283" src="resource/img/GEO.png">
+    </div>
     <button class="btn" onclick="chooseButtonClicked(this)">choose</button>
 </div>
 
 
 <div class="Box">
-    <h2>component2</h2>
+    <h2>GTP</h2>
+    <div class="img-container">
+        <img width="283" src="resource/img/GTP.png">
+    </div>
     <button class="btn" onclick="chooseButtonClicked(this)">choose</button>
 </div>
 
 
 <div class="Box">
-    <h2>component3</h2>
+    <h2>NDN</h2>
+    <div class="img-container">
+        <img width="283" src="resource/img/NDN.png">
+    </div>
     <button class="btn" onclick="chooseButtonClicked(this)">choose</button>
 </div>
 
 <div class="Box">
-    <h2>component4</h2>
+    <h2>SRv6</h2>
+    <div class="img-container">
+        <img width="283" src="resource/img/SRv6.png">
+    </div>
     <button class="btn" onclick="chooseButtonClicked(this)">choose</button>
 </div>
-
-<div class="Box">
-    <h2>component5</h2>
-    <button class="btn" onclick="chooseButtonClicked(this)">choose</button>
-</div>
-
-<div class="Box">
-    <h2>component6</h2>
-    <button class="btn" onclick="chooseButtonClicked(this)">choose</button>
-</div>
-
 
 <script>
     var sidebar = document.getElementById("sidebar");
@@ -309,7 +314,6 @@
 
         if (button.textContent === "choose") {
             button.textContent = "cancel";
-            button.classList.add("selected");
             var li = document.createElement("li");
             var parentBox = button.closest(".Box");
             var h2Element = parentBox.querySelector("h2");
@@ -317,10 +321,14 @@
             selectedButtons.appendChild(li);
         } else {
             button.textContent = "choose";
-            var lastSelectedButton = selectedButtons.lastChild;
-            if (lastSelectedButton) {
-                button.classList.remove("selected");
-                selectedButtons.removeChild(lastSelectedButton);
+            var children = selectedButtons.children;
+            var parentBox = button.closest(".Box");
+            var h2Element = parentBox.querySelector("h2");
+            for (var i=0; i<children.length; i++){
+                var child = children[i];
+                if (child.textContent === h2Element.textContent){
+                    selectedButtons.removeChild(child);
+                }
             }
         }
     }
