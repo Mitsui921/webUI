@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/c/font_4210537_228rsuh3l9xi.css?spm=a313x.manage_type_myprojects.i1.9.4a413a81uGSBZ7&file=font_4210537_228rsuh3l9xi.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        input,
+        button {
+            background: transparent;
+            border: 0;
+            outline: none;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(#141e30, #243b55);
+            /*display: flex;*/
+            justify-content: center;
+            /*align-items: center;*/
+            font-size: 16px;
+            color: #03e9f4;
+        }
+
+        .Box {
+            width: 400px;
+            height: 364px;
+            background-color: #0c1622;
+            border-radius: 10px;
+            box-shadow: 0 15px 25px 0 rgba(0, 0, 0, .6);
+            padding: 40px;
+            box-sizing: border-box;
+            position: relative;
+            display: inline-table;
+            margin-left: 150px;
+            margin-top: 50px;
+            margin-right: 50px;
+        }
+
+        h2 {
+            text-align: center;
+            color: aliceblue;
+            margin-bottom: 30px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .item input {
+            width: 100%;
+            height: 100%;
+            color: #fff;
+            padding-top: 20px;
+            box-sizing: border-box;
+        }
+
+        .item input:focus+label,
+        .item input:valid+label {
+            top: 0px;
+            font-size: 2px;
+        }
+
+        .item label {
+            position: absolute;
+            left: 0;
+            top: 12px;
+            transition: all 0.5s linear;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            margin-top: 200px;
+            color: #03e9f4;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            left: 35%;
+        }
+
+        .btn:hover {
+            border-radius: 5px;
+            color: #fff;
+            background: #03e9f4;
+            box-shadow: 0 0 5px 0 #03e9f4,
+            0 0 25px 0 #03e9f4,
+            0 0 50px 0 #03e9f4,
+            0 0 100px 0 #03e9f4;
+            transition: all 1s linear;
+        }
+
+        .btn>span {
+            position: absolute;
+        }
+
+        .btn>span:nth-child(1) {
+            width: 100%;
+            height: 2px;
+            background: -webkit-linear-gradient(left, transparent, #03e9f4);
+            left: -100%;
+            top: 0px;
+            animation: line1 1s linear infinite;
+        }
+
+        @keyframes line1 {
+
+            50%,
+            100% {
+                left: 100%;
+            }
+        }
+
+        .btn>span:nth-child(2) {
+            width: 2px;
+            height: 100%;
+            background: -webkit-linear-gradient(top, transparent, #03e9f4);
+            right: 0px;
+            top: -100%;
+            animation: line2 1s 0.25s linear infinite;
+        }
+
+        @keyframes line2 {
+
+            50%,
+            100% {
+                top: 100%;
+            }
+        }
+
+        .btn>span:nth-child(3) {
+            width: 100%;
+            height: 2px;
+            background: -webkit-linear-gradient(left, #03e9f4, transparent);
+            left: 100%;
+            bottom: 0px;
+            animation: line3 1s 0.75s linear infinite;
+        }
+
+        @keyframes line3 {
+
+            50%,
+            100% {
+                left: -100%;
+            }
+        }
+
+        .btn>span:nth-child(4) {
+            width: 2px;
+            height: 100%;
+            background: -webkit-linear-gradient(top, transparent, #03e9f4);
+            left: 0px;
+            top: 100%;
+            animation: line4 1s 1s linear infinite;
+        }
+
+        @keyframes line4 {
+
+            50%,
+            100% {
+                top: -100%;
+            }
+        }
+        .cartButton {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            color: #03e9f4;
+            transition: all 0.3s ease;
+        }
+        .icon-gouwuchekong{
+            font-size: 30px;
+        }
+
+        #sidebar {
+            position: fixed;
+            left: -250px;
+            width: 250px;
+            height: 100vh;
+            background: linear-gradient(#141e30, #243b55);
+            padding-top: 0;
+            transition: left 0.3s ease-in-out;
+            z-index: 1000;
+            top: 0;
+            color: #03e9f4;
+            line-height: 30px;
+            justify-content: center;
+        }
+
+        #toggleButton {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .button-container{
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            bottom: 50px;
+
+        }
+        .functionButton{
+            padding: 10px 20px;
+            color: #03e9f4;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .functionButton:hover{
+            border-radius: 5px;
+            color: #fff;
+            background: #03e9f4;
+            box-shadow: 0 0 5px 0 #03e9f4,
+            0 0 25px 0 #03e9f4,
+            0 0 50px 0 #03e9f4,
+            0 0 100px 0 #03e9f4;
+            transition: all 1s linear;
+        }
+
+    </style>
+</head>
+
+<body>
+
+
+<h1 style="text-align: center; margin-top: 60px">Choose your component</h1>
+
+<button class="cartButton" onclick="toggleSidebar()"><i class="iconfont icon-gouwuchekong" ></i></button>
+
+<div id="sidebar" style="text-align: center">
+    <h1 style="text-align: center; margin-top: 60px">Components</h1>
+    <ol id="selectedButtons" style="text-align: center; margin-top: 80px"></ol>
+    <div class="button-container">
+        <button id="compile" class="functionButton" style="margin-left: 60px">COMPILE</button>
+        <button id="run" class="functionButton" style="margin-left: 60px">RUN</button>
+        <button id="pause" class="functionButton" style="margin-left: 60px">PAUSE</button>
+    </div>
+
+</div>
+
+
+<!--可选元素框-->
+<div class="Box">
+    <h2>component1</h2>
+    <button class="btn" onclick="chooseButtonClicked(this)">choose</button>
+</div>
+
+
+<div class="Box">
+    <h2>component2</h2>
+    <button class="btn" onclick="chooseButtonClicked(this)">choose</button>
+</div>
+
+
+<div class="Box">
+    <h2>component3</h2>
+    <button class="btn" onclick="chooseButtonClicked(this)">choose</button>
+</div>
+
+<div class="Box">
+    <h2>component4</h2>
+    <button class="btn" onclick="chooseButtonClicked(this)">choose</button>
+</div>
+
+<div class="Box">
+    <h2>component5</h2>
+    <button class="btn" onclick="chooseButtonClicked(this)">choose</button>
+</div>
+
+<div class="Box">
+    <h2>component6</h2>
+    <button class="btn" onclick="chooseButtonClicked(this)">choose</button>
+</div>
+
+
+<script>
+    var sidebar = document.getElementById("sidebar");
+    var toggleButton = document.getElementById("toggleButton");
+
+    function toggleSidebar() {
+        if (sidebar.style.left === "0px") {
+            sidebar.style.left = "-250px";
+            toggleButton.textContent = "打开侧边栏";
+        } else {
+            sidebar.style.left = "0";
+            toggleButton.textContent = "关闭侧边栏";
+        }
+    }
+
+    var selectedButtons = document.getElementById("selectedButtons");
+
+    function chooseButtonClicked(button) {
+
+        if (button.textContent === "choose") {
+            button.textContent = "cancel";
+            button.classList.add("selected");
+            var li = document.createElement("li");
+            var parentBox = button.closest(".Box");
+            var h2Element = parentBox.querySelector("h2");
+            li.textContent = h2Element.textContent;
+            selectedButtons.appendChild(li);
+        } else {
+            button.textContent = "choose";
+            var lastSelectedButton = selectedButtons.lastChild;
+            if (lastSelectedButton) {
+                button.classList.remove("selected");
+                selectedButtons.removeChild(lastSelectedButton);
+            }
+        }
+    }
+</script>
+
+
+</body>
+
+</html>
