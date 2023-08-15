@@ -7,7 +7,7 @@ deps-env:
 	test -d ngsdn-tutorial || git clone -b master https://github.com/opennetworkinglab/ngsdn-tutorial
 	cd ngsdn-tutorial && make pull-deps
 
-build: clean
+build:
 	@mkdir build
 	cp src/datapath/upf.p4 ngsdn-tutorial/p4src/main.p4
 	cp src/datapath/parse.p4 ngsdn-tutorial/p4src/parse.p4
