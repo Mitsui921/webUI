@@ -98,77 +98,28 @@
             transition: all 1s linear;
         }
 
-        .btn>span {
-            position: absolute;
+        .btn-cancel{
+            padding: 10px 20px;
+            margin-top: 20px;
+            color: #ff4500;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            left: 35%;
         }
 
-        .btn>span:nth-child(1) {
-            width: 100%;
-            height: 2px;
-            background: -webkit-linear-gradient(left, transparent, #03e9f4);
-            left: -100%;
-            top: 0px;
-            animation: line1 1s linear infinite;
+        .btn-cancel:hover {
+            border-radius: 5px;
+            color: #fff;
+            background: #ff4500;
+            box-shadow: 0 0 5px 0 #ff4500,
+            0 0 25px 0 #ff4500,
+            0 0 50px 0 #ff4500,
+            0 0 100px 0 #ff4500;
+            transition: all 1s linear;
         }
 
-        @keyframes line1 {
-
-            50%,
-            100% {
-                left: 100%;
-            }
-        }
-
-        .btn>span:nth-child(2) {
-            width: 2px;
-            height: 100%;
-            background: -webkit-linear-gradient(top, transparent, #03e9f4);
-            right: 0px;
-            top: -100%;
-            animation: line2 1s 0.25s linear infinite;
-        }
-
-        @keyframes line2 {
-
-            50%,
-            100% {
-                top: 100%;
-            }
-        }
-
-        .btn>span:nth-child(3) {
-            width: 100%;
-            height: 2px;
-            background: -webkit-linear-gradient(left, #03e9f4, transparent);
-            left: 100%;
-            bottom: 0px;
-            animation: line3 1s 0.75s linear infinite;
-        }
-
-        @keyframes line3 {
-
-            50%,
-            100% {
-                left: -100%;
-            }
-        }
-
-        .btn>span:nth-child(4) {
-            width: 2px;
-            height: 100%;
-            background: -webkit-linear-gradient(top, transparent, #03e9f4);
-            left: 0px;
-            top: 100%;
-            animation: line4 1s 1s linear infinite;
-        }
-
-        @keyframes line4 {
-
-            50%,
-            100% {
-                top: -100%;
-            }
-        }
         .cartButton {
             position: fixed;
             top: 10px;
@@ -233,6 +184,14 @@
             0 0 100px 0 #03e9f4;
             transition: all 1s linear;
         }
+        .functionButton-disabled{
+            padding: 10px 20px;
+            color: #808080;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
         .img-container{
             display: flex;
             justify-content: center;
@@ -252,9 +211,10 @@
     <h1 style="text-align: center; margin-top: 60px">已选模态</h1>
     <ol id="selectedButtons" style="text-align: center; margin-top: 80px"></ol>
     <div class="button-container">
-        <button id="compile" class="functionButton" style="margin-left: 60px; font-size: large" onclick="compileFile()">编译</button>
-        <button id="run" class="functionButton" style="margin-left: 60px; font-size: large">运行</button>
-        <button id="pause" class="functionButton" style="margin-left: 60px; font-size: large">暂停</button>
+        <button id="compile" disabled style="margin-left: 60px; font-size: large" onclick="compileFile()">编译</button>
+        <button id="run" disabled class="functionButton-disabled" style="margin-left: 60px; font-size: large" onclick="runFile()">运行</button>
+        <button id="pause" disabled class="functionButton-disabled" style="margin-left: 60px; font-size: large" onclick="pauseRun()">暂停</button>
+        <button id="reset" class="functionButton" style="margin-left: 60px; font-size: large" onclick="reset()">重置</button>
     </div>
 
 </div>
@@ -266,25 +226,23 @@
     <div class="img-container">
         <img width="283" src="resource/img/GEO.png">
     </div>
-    <button class="btn" onclick="chooseButtonClicked(this)">choose</button>
+    <button name="chooseButton" class="btn" onclick="chooseButtonClicked(this)">choose</button>
 </div>
-
 
 <div class="Box">
     <h2>GTP</h2>
     <div class="img-container">
         <img width="283" src="resource/img/GTP.png">
     </div>
-    <button class="btn" onclick="chooseButtonClicked(this)">choose</button>
+    <button name="chooseButton" class="btn" onclick="chooseButtonClicked(this)">choose</button>
 </div>
-
 
 <div class="Box">
     <h2>NDN</h2>
     <div class="img-container">
         <img width="283" src="resource/img/NDN.png">
     </div>
-    <button class="btn" onclick="chooseButtonClicked(this)">choose</button>
+    <button name="chooseButton" class="btn" onclick="chooseButtonClicked(this)">choose</button>
 </div>
 
 <div class="Box">
@@ -292,12 +250,34 @@
     <div class="img-container">
         <img width="283" src="resource/img/SRv6.png">
     </div>
-    <button class="btn" onclick="chooseButtonClicked(this)">choose</button>
+    <button name="chooseButton" class="btn" onclick="chooseButtonClicked(this)">choose</button>
 </div>
 
 <script>
     var sidebar = document.getElementById("sidebar");
     var toggleButton = document.getElementById("toggleButton");
+    var selectedButtons = document.getElementById("selectedButtons");
+    var buttonCompile = document.getElementById("compile");
+    var buttonRun = document.getElementById("run");
+    var buttonPause = document.getElementById("pause");
+    var buttons = document.getElementsByName("chooseButton");
+
+    function decideStyle(){
+        return selectedButtons.children.length === 0
+    }
+    changeStyle();
+
+    function changeStyle(){
+        if (decideStyle()){
+            buttonCompile.classList.remove("functionButton");
+            buttonCompile.classList.add("functionButton-disabled");
+            buttonCompile.disabled = true;
+        } else {
+            buttonCompile.classList.remove("functionButton-disabled");
+            buttonCompile.classList.add("functionButton");
+            buttonCompile.disabled = false;
+        }
+    }
 
     function toggleSidebar() {
         if (sidebar.style.left === "0px") {
@@ -309,19 +289,22 @@
         }
     }
 
-    var selectedButtons = document.getElementById("selectedButtons");
-
     function chooseButtonClicked(button) {
 
         if (button.textContent === "choose") {
             button.textContent = "cancel";
+            button.classList.remove("btn");
+            button.classList.add("btn-cancel");
             var li = document.createElement("li");
             var parentBox = button.closest(".Box");
             var h2Element = parentBox.querySelector("h2");
             li.textContent = h2Element.textContent;
             selectedButtons.appendChild(li);
+            changeStyle();
         } else {
             button.textContent = "choose";
+            button.classList.remove("btn-cancel");
+            button.classList.add("btn");
             var children = selectedButtons.children;
             var parentBox = button.closest(".Box");
             var h2Element = parentBox.querySelector("h2");
@@ -331,45 +314,104 @@
                     selectedButtons.removeChild(child);
                 }
             }
+            changeStyle();
         }
     }
 
     function compileFile(){
-        var url = "http://172.18.9.8:29511/polymorphic/v1/compile/12";
-        var data = {
-            key1: "value1",
-            key2: "value2"
-        };
+        buttonRun.disabled = false;
+        buttonRun.classList.remove("functionButton-disabled");
+        buttonRun.classList.add("functionButton");
+        var url = "http://172.18.9.13:29511/polymorphic/v1/compile";
+        var selectedButtons = document.getElementById("selectedButtons");
+        var selectedModeNames = "" //初始化一个空字符串用于存储已选模态名称
+
+        // 获取已选模态的名称
+        for (var i = 0; i < selectedButtons.children.length; i++) {
+            var li = selectedButtons.children[i];
+            selectedModeNames += li.textContent.trim(); // 将模态名称拼接到字符串中
+            if (i < selectedButtons.children.length - 1) {
+                selectedModeNames += ";";  // 在模态名称之间添加分号
+            }
+        }
 
         fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify({ choices: selectedModeNames })
         })
-            .then(response => response.json())
-            .then(responseData => {
-                console.log(responseData);
-            })
-            .catch(error => {
-                console.error("Error:", error);
-            });
-        // var xhr = new XMLHttpRequest();
-        // xhr.withCredentials = true;
-        // xhr.open("POST", url, true);
-        // xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-        // xhr.onreadystatechange = function () {
-        //     if (xhr.readyState === 4 && xhr.status === 200) {
-        //         var response = JSON.parse(xhr.responseText);
-        //         console.log(response);
-        //     }
-        // };
-        // var data = {
-        //     key1: "value1",
-        //     key2: "value2"
-        // };
-        // xhr.send(JSON.stringify(data));
+        .then(response => response.json())
+        .then(responseData => {
+            console.log(responseData);
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+    }
+
+    function runFile(){
+        var url = "http://172.18.9.13:29511/polymorphic/v1/run";
+
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        })
+        .then(response => response.json())
+        .then(responseData => {
+            console.log(responseData);
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+        buttonPause.disabled = false;
+        buttonPause.classList.remove("functionButton-disabled");
+        buttonPause.classList.add("functionButton");
+    }
+
+    function pauseRun(){
+        var url = "http://172.18.9.13:29511/polymorphic/v1/pause";
+
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        })
+        .then(response => response.json())
+        .then(responseData => {
+            console.log(responseData);
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+    }
+
+
+    function reset(){
+        // 侧边栏复原
+        while (selectedButtons.firstChild){
+            selectedButtons.removeChild(selectedButtons.firstChild);
+        }
+
+        // 组件按钮复原
+        for (var i=0; i<buttons.length; i++){
+            buttons[i].textContent = "choose";
+            buttons[i].classList.remove("btn-cancel");
+            buttons[i].classList.add("btn");
+        }
+
+        // 功能按钮复原
+        changeStyle();
+        buttonRun.classList.remove("functionButton");
+        buttonRun.classList.add("functionButton-disabled");
+        buttonRun.disabled = true;
+        buttonPause.classList.remove("functionButton");
+        buttonPause.classList.add("functionButton-disabled");
+        buttonPause.disabled = true;
     }
 
 </script>
