@@ -1,6 +1,6 @@
 # 模态webUI
 
-<a><img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"></a><a><img src="https://img.shields.io/badge/HTML-239120?style=for-the-badge&logo=html5&logoColor=white"></a>
+<a><img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"></a> <a><img src="https://img.shields.io/badge/HTML-239120?style=for-the-badge&logo=html5&logoColor=white"></a>
 
 版本：23.08.19
 
@@ -11,7 +11,7 @@ To be continued
 ## 文件说明
 
 - resource：图片
-- ~~app.js~~弃用
+- ~~app.js~~：弃用
 - index.html：页面
 
 ------
